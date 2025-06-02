@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+        Nếu bạn có các service beans được quản lý bởi Spring và muốn tách riêng,
+        bạn có thể component-scan chúng ở đây.
+        Ví dụ: <context:component-scan base-package="yaa.buoi5bth.service"/>
+        Trong bài này, chúng ta không có service riêng nên file này có thể để trống
+        hoặc không cần thiết nếu bạn gộp hết vào dispatcher-servlet.xml
+        và không dùng ContextLoaderListener.
+        Tuy nhiên, để giữ cấu trúc phân tách, ta cứ để file này.
+    -->
+
+</beans>

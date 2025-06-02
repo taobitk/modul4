@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="view='product/list'">
+<head th:replace="~{layout :: head}">
+</head>
+<body>
+<div th:fragment="content" class="container">
+    <h3 class="page-header" th:text="${pageTitle}">Danh sách Sản phẩm</h3>
+
+    <div th:if="${successMessage}" class="message success-message">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <p>
+        <a th:href="@{/products/create}" class="button">Thêm sản phẩm mới</a>
+    </p>
+
+    <form th:action="@{/products}" method="get" class="search-form">
+        <input type="text" name="search" placeholder="Nhập tên sản phẩm để tìm kiếm..." th:value="${searchName}" />
+        <button type="submit" class="button">Tìm kiếm</button>
+        <a th:href="@{/products}" class="button secondary" th:if="${searchName != null and !searchName.isEmpty()}">Xóa tìm kiếm</a>
+    </form>
+
+    <div th:if="${products.isEmpty()}">
+        <p>Không tìm thấy sản phẩm nào.</p>
+    </div>
+
+    <table th:unless="${products.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Nhà sản xuất</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}">1</td>
+            <td th:text="${product.name}">Tên sản phẩm</td>
+            <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')} + ' VNĐ'">10.000.000 VNĐ</td>
+            <td th:text="${product.manufacturer}">Nhà sản xuất</td>
+            <td class="action-links">
+                <a th:href="@{/products/{id}/view(id=${product.id})}" class="button secondary">Xem</a>
+                <a th:href="@{/products/{id}/edit(id=${product.id})}" class="button">Sửa</a>
+                <a th:href="@{/products/{id}/delete(id=${product.id})}" class="button danger">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

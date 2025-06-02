@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="view='product/delete_confirm'">
+<head th:replace="~{layout :: head}">
+</head>
+<body>
+<div th:fragment="content" class="container">
+  <h3 class="page-header" th:text="${pageTitle}">Xác nhận Xóa Sản phẩm</h3>
+
+  <p>Bạn có chắc chắn muốn xóa sản phẩm sau không?</p>
+
+  <div>
+    <strong>ID:</strong> <span th:text="${product.id}">123</span><br/>
+    <strong>Tên sản phẩm:</strong> <span th:text="${product.name}">Tên sản phẩm ABC</span><br/>
+    <strong>Giá:</strong> <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')} + ' VNĐ'">15.000.000 VNĐ</span><br/>
+    <strong>Nhà sản xuất:</strong> <span th:text="${product.manufacturer}">Nhà sản xuất XYZ</span><br/>
+  </div>
+
+  <form th:action="@{/products/delete}" method="post" style="margin-top: 20px;">
+    <input type="hidden" name="id" th:value="${product.id}" />
+    <button type="submit" class="button danger">Xác nhận Xóa</button>
+    <a th:href="@{/products}" class="button secondary">Hủy bỏ</a>
+  </form>
+</div>
+</body>
+</html>

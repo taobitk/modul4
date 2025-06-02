@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head th:fragment="head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${pageTitle ?: 'Quản Lý Sản Phẩm'}">Quản Lý Sản Phẩm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      color: #0056b3; /* Màu xanh dương đậm cho tiêu đề */
+    }
+
+    h3.page-header { /* Style riêng cho tiêu đề chính của trang */
+      background-color: #007bff; /* Màu xanh dương chính */
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff; /* Màu xanh dương cho header của bảng */
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .button, input[type="submit"], button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 5px;
+      text-decoration: none; /* Cho thẻ <a> có class button */
+      display: inline-block; /* Cho thẻ <a> có class button */
+    }
+
+    .button-danger, input[type="submit"].danger, button.danger {
+      background-color: #dc3545; /* Màu đỏ cho nút nguy hiểm (Xóa) */
+    }
+    .button-secondary, input[type="submit"].secondary, button.secondary {
+      background-color: #6c757d; /* Màu xám cho nút phụ (Quay lại) */
+    }
+
+
+    .button:hover, input[type="submit"]:hover, button:hover {
+      opacity: 0.9;
+    }
+    .button-danger:hover, input[type="submit"].danger:hover, button.danger:hover {
+      background-color: #c82333;
+    }
+    .button-secondary:hover, input[type="submit"].secondary:hover, button.secondary:hover {
+      background-color: #5a6268;
+    }
+
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group textarea {
+      width: calc(100% - 22px); /* Điều chỉnh để padding và border không làm tràn */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .form-group textarea {
+      resize: vertical; /* Cho phép thay đổi kích thước theo chiều dọc */
+      min-height: 80px;
+    }
+
+
+    .action-links a, .action-links button {
+      margin-right: 8px;
+    }
+
+    .message {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+
+    .success-message {
+      background-color: #d4edda; /* Xanh lá cây nhạt */
+      color: #155724; /* Xanh lá cây đậm */
+      border: 1px solid #c3e6cb;
+    }
+
+    .error-message {
+      background-color: #f8d7da; /* Màu hồng nhạt cho lỗi */
+      color: #721c24; /* Màu đỏ đậm cho lỗi */
+      border: 1px solid #f5c6cb;
+    }
+    .search-form {
+      margin-bottom: 20px;
+      display: flex; /* Sắp xếp các phần tử trên một hàng */
+      gap: 10px; /* Khoảng cách giữa các phần tử */
+    }
+    .search-form input[type="text"] {
+      flex-grow: 1; /* Cho phép input mở rộng */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div th:replace="${view} :: content">
+    <p>Nội dung trang sẽ được hiển thị ở đây.</p>
+  </div>
+</div>
+
+<footer th:fragment="footer">
+  &copy; <span th:text="${#dates.year(#dates.createNow())}">2025</span> - Ứng dụng Quản Lý Sản Phẩm.
+</footer>
+</body>
+</html>

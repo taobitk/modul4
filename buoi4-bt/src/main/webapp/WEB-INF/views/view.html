@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="view='product/view'">
+<head th:replace="~{layout :: head}">
+</head>
+<body>
+<div th:fragment="content" class="container">
+  <h3 class="page-header" th:text="${pageTitle}">Chi tiết Sản phẩm</h3>
+
+  <div th:if="${product != null}">
+    <div class="form-group">
+      <strong>ID:</strong>
+      <p th:text="${product.id}">123</p>
+    </div>
+    <div class="form-group">
+      <strong>Tên sản phẩm:</strong>
+      <p th:text="${product.name}">Tên sản phẩm ABC</p>
+    </div>
+    <div class="form-group">
+      <strong>Giá:</strong>
+      <p th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')} + ' VNĐ'">15.000.000 VNĐ</p>
+    </div>
+    <div class="form-group">
+      <strong>Nhà sản xuất:</strong>
+      <p th:text="${product.manufacturer}">Nhà sản xuất XYZ</p>
+    </div>
+    <div class="form-group">
+      <strong>Mô tả:</strong>
+      <p th:text="${product.description}" style="white-space: pre-wrap;">Mô tả chi tiết về sản phẩm...</p>
+    </div>
+  </div>
+
+  <div th:if="${product == null}">
+    <p>Không tìm thấy thông tin sản phẩm.</p>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <a th:href="@{/products}" class="button secondary">Quay lại danh sách</a>
+    <a th:if="${product != null}" th:href="@{/products/{id}/edit(id=${product.id})}" class="button">Sửa sản phẩm</a>
+  </div>
+</div>
+</body>
+</html>

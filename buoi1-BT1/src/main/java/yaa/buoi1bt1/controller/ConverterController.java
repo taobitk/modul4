@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ConverterController {
-
     @GetMapping("/convert") // Xử lý request GET tới URL /convert
     public String showConverterForm() {
         return "converter-form";
     }
 
     @PostMapping("/convert")
-    public String performConversion(@RequestParam(name = "usdAmount", required = false) Double usdAmount,
+        public String performConversion(@RequestParam(name = "usdAmount", required = false) Double usdAmount,
                                     @RequestParam(name = "exchangeRate", required = false) Double exchangeRate,
                                     Model model) {
 

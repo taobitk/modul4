@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'yaa'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // Spring MVC
+    implementation 'org.springframework:spring-webmvc:5.3.23'
+
+    // Servlet API (Tomcat cung cấp)
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+
+    // JSP API (Tomcat cung cấp)
+    compileOnly 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
+
+    // JSTL (Cần cho các thẻ c:if, c:forEach...)
+    implementation 'javax.servlet:jstl:1.2'
+
+    // Spring Tags (Cần cho các thẻ form:form, form:input...)
+    // Thường đã có trong spring-webmvc, nhưng thêm tường minh nếu cần
+    implementation 'org.springframework:spring-web:5.3.23'
+
+    // Thư viện validation (JSR 380 - Bean Validation API)
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    // Triển khai của Hibernate Validator (phổ biến)
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
+}
+
+test {
+    useJUnitPlatform()
+}

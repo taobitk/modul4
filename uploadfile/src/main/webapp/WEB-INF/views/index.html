@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Management</title>
+  <style>
+    table { border-collapse: collapse; width: 80%; margin: 20px auto; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    img { max-width: 100px; max-height: 100px; }
+    .actions a { margin-right: 10px; }
+    .container { width: 90%; margin: 20px auto; }
+    .add-link { margin-bottom: 20px; display: inline-block; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;}
+  </style>
+</head>
+<body>
+<div class="container">
+  <h3>Product Management</h3>
+  <p>
+    <a th:href="@{/product/create}" class="add-link">
+      Add new product
+    </a>
+  </p>
+  <table id="products">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Image</th>
+      <!-- <th>Actions</th> -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${products.isEmpty()}">
+      <td colspan="4" style="text-align: center;">No products available.</td>
+    </tr>
+    <tr th:each="product : ${products}">
+      <td th:text="${product.id}"></td>
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.description}"></td>
+      <td>
+        <!-- Đường dẫn tới ảnh sẽ là /image/ten_file_anh.jpg -->
+        <img th:if="${product.image != null && !product.image.isEmpty()}"
+             th:src="@{'/image/' + ${product.image}}" alt="Product Image"/>
+        <span th:if="${product.image == null || product.image.isEmpty()}">No Image</span>
+      </td>
+      <!--
+      <td class="actions">
+          <a th:href="@{'/product/edit/' + ${product.id}}">Edit</a>
+          <a th:href="@{'/product/delete/' + ${product.id}}" onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+      -->
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Bài Hát</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h3 { color: #333; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th { background-color: #f2f2f2; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    p a {
+      display: inline-block;
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    p a:hover { background-color: #0056b3; }
+    audio { width: 100%; max-width: 300px; margin-top: 5px;}
+    .message {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+  </style>
+</head>
+<body>
+
+<h3>Danh Sách Bài Hát Đã Upload</h3>
+
+<div th:if="${message}" class="message success">
+  <span th:text="${message}"></span>
+</div>
+
+<p>
+  <a th:href="@{/songs/upload}">
+    Upload bài hát mới
+  </a>
+</p>
+
+<table id="songsTable">
+  <thead>
+  <tr>
+    <th>Tên bài hát</th>
+    <th>Nghệ sĩ</th>
+    <th>Thể loại</th>
+    <th>Nghe thử</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${songs.isEmpty()}">
+    <td colspan="4" style="text-align: center;">Chưa có bài hát nào được upload.</td>
+  </tr>
+  <tr th:each="song : ${songs}">
+    <td th:text="${song.name}"></td>
+    <td th:text="${song.artist}"></td>
+    <td th:text="${song.genre}"></td>
+    <td>
+      <audio controls th:src="@{'/music/' + ${song.filePath}}">
+        Trình duyệt của bạn không hỗ trợ phát âm thanh.
+      </audio>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

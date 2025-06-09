@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách Bài hát</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .message { padding: 10px; margin-bottom: 15px; border-radius: 4px; color: #155724; background-color: #d4edda; }
+    .actions a { margin-right: 10px; text-decoration: none; }
+  </style>
+</head>
+<body>
+<h1>Ứng dụng Nghe nhạc</h1>
+<p><a href="/songs/create">Thêm bài hát mới</a></p>
+
+<div th:if="${message}" class="message" th:text="${message}"></div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Tên bài hát</th>
+    <th>Nghệ sĩ</th>
+    <th>Thể loại</th>
+    <th style="width: 150px;">Hành động</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="song : ${songs}">
+    <td th:text="${song.name}"></td>
+    <td th:text="${song.artist}"></td>
+    <td th:text="${song.genre}"></td>
+    <td class="actions">
+      <a th:href="@{/songs/{id}/listen(id=${song.id})}">Nghe</a>
+      <a th:href="@{/songs/{id}/delete(id=${song.id})}">Xóa</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

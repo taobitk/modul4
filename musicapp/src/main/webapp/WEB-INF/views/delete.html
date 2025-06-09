@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Xác nhận Xóa</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    .confirm-box { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #f5c6cb; background-color: #f8d7da; border-radius: 8px; }
+  </style>
+</head>
+<body>
+<div class="confirm-box">
+  <h1>Xác nhận Xóa</h1>
+  <p>Bạn có chắc chắn muốn xóa bài hát này không?</p>
+  <div th:object="${song}">
+    <p><strong>Tên bài hát: </strong><span th:text="*{name}"></span></p>
+    <p><strong>Nghệ sĩ: </strong><span th:text="*{artist}"></span></p>
+  </div>
+  <form th:action="@{/songs/delete}" method="post">
+    <input type="hidden" name="id" th:value="${song.id}" />
+    <button type="submit">Xóa</button>
+    <a th:href="@{/songs}" style="margin-left: 10px;">Hủy</a>
+  </form>
+</div>
+</body>
+</html>

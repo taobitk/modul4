@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'yaa'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    implementation 'org.springframework:spring-webmvc:5.3.34'
+    implementation 'org.springframework:spring-orm:5.3.34' // Thêm Spring ORM để tích hợp Hibernate
+    implementation 'org.springframework:spring-tx:5.3.34' // Thêm Spring Transaction
+    // Thymeleaf
+    implementation 'org.thymeleaf:thymeleaf-spring5:3.0.15.RELEASE'
+    // Hibernate
+    implementation 'org.hibernate:hibernate-core:5.6.15.Final'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    // File Upload
+    implementation 'commons-fileupload:commons-fileupload:1.5'
+
+    // Hỗ trợ JPA
+    implementation 'javax.persistence:javax.persistence-api:2.2'
+
+    // Thư viện để quản lý DataSource (ví dụ: c3p0 hoặc HikariCP)
+    implementation 'org.hibernate:hibernate-c3p0:5.6.15.Final'
+}
+
+test {
+    useJUnitPlatform()
+}

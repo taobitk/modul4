@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Đang phát: ' + ${song.name}"></title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; text-align: center; }
+        .player-container { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        audio { width: 100%; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="player-container">
+    <h1>Đang phát</h1>
+    <div th:object="${song}">
+        <h2 th:text="*{name}"></h2>
+        <p>Nghệ sĩ: <span th:text="*{artist}"></span></p>
+        <p>Thể loại: <span th:text="*{genre}"></span></p>
+        <audio controls autoplay>
+            <source th:src="@{/music/{file}(file=*{filePath})}" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ phát nhạc.
+        </audio>
+    </div>
+    <p style="margin-top: 20px;"><a th:href="@{/songs}">Quay lại danh sách</a></p>
+</div>
+</body>
+</html>

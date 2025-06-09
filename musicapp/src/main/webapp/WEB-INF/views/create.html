@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm Bài hát</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    form div { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; }
+    input[type="text"], input[type="file"] { width: 300px; padding: 8px; }
+    button { padding: 10px 15px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<h1>Thêm bài hát mới</h1>
+<p><a th:href="@{/songs}">Quay lại danh sách</a></p>
+
+<div th:if="${message}" style="color:red;" th:text="${message}"></div>
+
+<form th:action="@{/songs/save}" th:object="${songForm}" method="post" enctype="multipart/form-data">
+  <div>
+    <label for="name">Tên bài hát:</label>
+    <input type="text" id="name" th:field="*{name}" required/>
+  </div>
+  <div>
+    <label for="artist">Nghệ sĩ:</label>
+    <input type="text" id="artist" th:field="*{artist}" required/>
+  </div>
+  <div>
+    <label for="genre">Thể loại:</label>
+    <input type="text" id="genre" th:field="*{genre}" required/>
+  </div>
+  <div>
+    <label for="filePath">Tệp nhạc (MP3, WAV...):</label>
+    <input type="file" id="filePath" th:field="*{filePath}" accept="audio/*" required/>
+  </div>
+  <button type="submit">Lưu</button>
+</form>
+</body>
+</html>

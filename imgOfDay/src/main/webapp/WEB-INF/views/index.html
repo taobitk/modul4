@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA - Bức ảnh Thiên văn trong ngày</title>
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Bức ảnh Thiên văn trong ngày của NASA</h1>
+
+    <div class="apod-container">
+        <h2 id="apod-title">Đang tải...</h2>
+        <img id="img-of-the-day" src="" alt="NASA Picture of the Day">
+        <p id="apod-explanation"></p>
+    </div>
+
+    <div th:if="${message}" class="message" th:text="${message}"></div>
+
+    <div class="feedback-form">
+        <h2>Để lại đánh giá của bạn</h2>
+        <form th:action="@{/img/comment}" th:object="${feedback}" method="post">
+            <div>
+                <label for="author">Tên của bạn:</label>
+                <input type="text" id="author" th:field="*{author}" required>
+            </div>
+            <div>
+                <label for="rating">Đánh giá (từ 1 đến 5 sao):</label>
+                <select id="rating" th:field="*{rating}" required>
+                    <option value="5">5 ★★★★★</option>
+                    <option value="4">4 ★★★★☆</option>
+                    <option value="3">3 ★★★☆☆</option>
+                    <option value="2">2 ★★☆☆☆</option>
+                    <option value="1">1 ★☆☆☆☆</option>
+                </select>
+            </div>
+            <div>
+                <label for="comment">Bình luận:</label>
+                <textarea id="comment" th:field="*{comment}" rows="4" required></textarea>
+            </div>
+            <button type="submit">Gửi đánh giá</button>
+        </form>
+    </div>
+
+    <div class="feedback-list">
+        <h2>Các đánh giá hôm nay</h2>
+        <div th:if="${#lists.isEmpty(feedbacks)}">
+            <p>Chưa có đánh giá nào cho hôm nay. Hãy là người đầu tiên!</p>
+        </div>
+        <div th:each="fb : ${feedbacks}" class="comment">
+            <p>
+                <span class="comment-author" th:text="${fb.author}"></span> -
+                <span class="comment-rating" th:text="${'★' * fb.rating} + ${'☆' * (5 - fb.rating)}"></span>
+            </p>
+            <p th:text="${fb.comment}"></p>
+            <div>
+                <form th:action="@{/img/like/{id}(id=${fb.id})}" method="post" class="like-form">
+                    <button type="submit" class="like-button">👍</button>
+                </form>
+                <span th:text="${fb.likes}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let apiKey = 'DEMO_KEY';
+    let query = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
+
+    let request = new XMLHttpRequest();
+    request.open('GET', query);
+    request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+            let response = JSON.parse(request.responseText);
+            document.getElementById('img-of-the-day').src = response.url;
+            document.getElementById('apod-title').textContent = response.title;
+            document.getElementById('apod-explanation').textContent = response.explanation;
+        } else {
+            document.getElementById('apod-title').textContent = "Không thể tải ảnh";
+            document.getElementById('apod-explanation').textContent = "Đã có lỗi xảy ra khi kết nối tới API của NASA.";
+        }
+    };
+    request.send();
+</script>
+</body>
+</html>
